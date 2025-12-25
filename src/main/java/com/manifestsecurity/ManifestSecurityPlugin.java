@@ -23,6 +23,8 @@ public class ManifestSecurityPlugin implements JadxPlugin {
         return JadxPluginInfoBuilder.pluginId("manisec")
                 .name("Manisec")
                 .description("Manifest security analysis with navigable findings")
+                .homepage("https://github.com/BitTheByte/Manisec")
+                .requiredJadxVersion("1.5.0, r0")
                 .build();
     }
 
