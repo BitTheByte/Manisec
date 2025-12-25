@@ -167,7 +167,6 @@ public class ManifestSecurityDialog extends JFrame {
     private void rebuildTree() {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(new TreeItem("Findings", null));
         Map<String, DefaultMutableTreeNode> categoryNodes = new HashMap<>();
-        Map<String, DefaultMutableTreeNode> ruleNodes = new HashMap<>();
         for (Finding finding : filtered) {
             String category = safeCategory(finding.getCategory());
             DefaultMutableTreeNode categoryNode = categoryNodes.get(category);
@@ -176,16 +175,8 @@ public class ManifestSecurityDialog extends JFrame {
                 categoryNodes.put(category, categoryNode);
                 root.add(categoryNode);
             }
-            String ruleKey = category + "|" + finding.getId();
-            DefaultMutableTreeNode ruleNode = ruleNodes.get(ruleKey);
-            if (ruleNode == null) {
-                String label = finding.getId() + " - " + finding.getTitle();
-                ruleNode = new DefaultMutableTreeNode(new TreeItem(label, null));
-                ruleNodes.put(ruleKey, ruleNode);
-                categoryNode.add(ruleNode);
-            }
             String leafLabel = finding.getTitle();
-            ruleNode.add(new DefaultMutableTreeNode(new TreeItem(leafLabel, finding)));
+            categoryNode.add(new DefaultMutableTreeNode(new TreeItem(leafLabel, finding)));
         }
         tree.setModel(new DefaultTreeModel(root));
         for (int i = 0; i < tree.getRowCount(); i++) {
