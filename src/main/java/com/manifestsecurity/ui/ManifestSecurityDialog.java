@@ -8,7 +8,7 @@ import com.manifestsecurity.report.ReportModel;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ManifestSecurityDialog extends JDialog {
+public class ManifestSecurityDialog extends JFrame {
     private final ReportModel report;
     private final ManifestNavigator navigator;
     private final JComboBox<String> categoryFilter;
@@ -51,7 +51,7 @@ public class ManifestSecurityDialog extends JDialog {
     private List<Finding> filtered;
 
     public ManifestSecurityDialog(Frame owner, ReportModel report, ManifestNavigator navigator) {
-        super(owner, buildTitle(report), false);
+        super(buildTitle(report));
         this.report = report;
         this.navigator = navigator;
         this.filtered = new ArrayList<>(report.getFindings());
@@ -121,6 +121,8 @@ public class ManifestSecurityDialog extends JDialog {
         add(filterPanel, BorderLayout.NORTH);
         add(split, BorderLayout.CENTER);
         add(actions, BorderLayout.SOUTH);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setResizable(true);
         setSize(1100, 700);
         setLocationRelativeTo(owner);
 
